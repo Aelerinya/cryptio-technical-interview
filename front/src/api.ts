@@ -1,9 +1,15 @@
 import { useState, useEffect, useDebugValue } from "react";
 
+type HistoricalBalance = {
+  starting_balance: number;
+  time: number;
+  end_balance: number;
+};
+
 export type AddressData = {
-  hash160: string;
   address: string;
   final_balance: number;
+  balances: HistoricalBalance[];
 };
 
 export interface ApiError {

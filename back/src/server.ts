@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import axios from "axios";
+import { getAddressInformations } from "./transactions";
 
 const app = express();
 
@@ -13,10 +13,9 @@ app.get("/ping", (_, res) => {
 
 app.get("/address/:address", (req, res) => {
   let bitcoin_address = req.params.address;
-  axios
-    .get(`https://blockchain.info/rawaddr/${bitcoin_address}`)
+  getAddressInformations(bitcoin_address)
     .then((result) => {
-      res.send(result.data);
+      res.send(result);
     })
     .catch((err) => {
       res.status(500);
