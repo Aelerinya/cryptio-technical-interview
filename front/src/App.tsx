@@ -1,21 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
 import Address from "./Address";
+import ApiStatus from "./ApiStatus";
 
 function App(): JSX.Element {
   const [addressInput, setAddressInput] = useState("");
   const [address, setAddress] = useState("");
-  const [APIIsLive, setAPIIsLive] = useState(false);
-
-  useState(() => {
-    axios
-      .get("http://localhost:8080/ping")
-      .then((resp) => setAPIIsLive(resp.data === "pong"))
-      .catch((err) => {
-        console.error(err);
-        setAPIIsLive(false);
-      });
-  });
 
   return (
     <div style={{ maxWidth: "42em", margin: "0 auto" }}>
@@ -40,11 +29,8 @@ function App(): JSX.Element {
       )}
 
       <hr />
-      {APIIsLive ? (
-        <p>The API is live!</p>
-      ) : (
-        <p style={{ color: "red" }}>The API did not respond...</p>
-      )}
+
+      <ApiStatus/>
     </div>
   );
 }
